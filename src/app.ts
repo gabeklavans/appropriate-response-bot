@@ -14,7 +14,7 @@ bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
 });
 
-const RESPONSE_CHANCE = 0.99;
+const RESPONSE_CHANCE = 0.01;
 const RESPONSES = [
   "oof",
   "pog",
