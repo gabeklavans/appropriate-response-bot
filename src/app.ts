@@ -1,4 +1,6 @@
-import { Telegraf } from "telegraf";
+/* Uncomment this if you wanna use types smh */
+// import { Telegraf } from "telegraf";
+const Telegraf = require("telegraf");
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -6,8 +8,13 @@ if (process.env.BOT_TOKEN === undefined) {
   throw new TypeError("BOT_TOKEN must be provided!");
 }
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
-const RESPONSE_CHANCE = 0.01;
+const bot = new Telegraf.Telegraf(process.env.BOT_TOKEN);
+
+bot.telegram.getMe().then((botInfo) => {
+  bot.options.username = botInfo.username;
+});
+
+const RESPONSE_CHANCE = 0.99;
 const RESPONSES = [
   "oof",
   "pog",
