@@ -28,6 +28,7 @@ const RESPONSES = [
   "pogchamp",
   "rip",
   "sheeeeeeeesh",
+  "julia who??"
 ];
 
 bot.on("message", (ctx) => {
