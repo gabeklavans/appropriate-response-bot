@@ -8,13 +8,22 @@ if (process.env.BOT_TOKEN === undefined) {
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const RESPONSE_CHANCE = 0.01;
-
-bot.start((ctx) => ctx.reply("Hello"));
-bot.help((ctx) => ctx.reply("Help message"));
+const RESPONSES = [
+  "oof",
+  "pog",
+  "poggers",
+  "poggers moment",
+  "yeet",
+  "nice",
+  "lit",
+  "omg this",
+  "😂",
+];
 
 bot.on("message", (ctx) => {
-  if (Math.random() > RESPONSE_CHANCE) {
-    ctx.reply("oof", { reply_to_message_id: ctx.message.message_id });
+  if (Math.random() <= RESPONSE_CHANCE) {
+    const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
+    ctx.reply(response, { reply_to_message_id: ctx.message.message_id });
   }
 });
 
