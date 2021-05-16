@@ -1,0 +1,20 @@
+{
+  "name": "response-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "telegraf": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "ts-node": "^9.1.1"
+  }
+}
