@@ -25,6 +25,9 @@ const RESPONSES = [
   "lit",
   "omg this",
   "😂",
+  "pogchamp",
+  "rip",
+  "sheeeeeeeesh",
 ];
 
 bot.on("message", (ctx) => {
