@@ -28,8 +28,11 @@ const RESPONSES = [
   "pogchamp",
   "rip",
   "sheeeeeeeesh",
-  "julia who??"
+  "julia who??",
+  "someday Emily will too", 
 ];
+
+bot.start((ctx) => ctx.reply("You'll be hearing from me."));
 
 bot.on("message", (ctx) => {
   if (Math.random() <= RESPONSE_CHANCE) {
@@ -37,6 +40,7 @@ bot.on("message", (ctx) => {
     ctx.reply(response, { reply_to_message_id: ctx.message.message_id });
   }
 });
+
 
 bot.launch().then(() => {
   console.log("Started bot");
