@@ -1,17 +1,18 @@
 /* Uncomment this if you wanna use types smh */
-// import { Telegraf } from "telegraf";
-const Telegraf = require("telegraf");
+import { Telegraf } from "telegraf";
+// const Telegraf = require("telegraf");
 import * as dotenv from "dotenv";
+import { Message, Update } from "typegram";
 dotenv.config();
 
 if (process.env.BOT_TOKEN === undefined) {
   throw new TypeError("BOT_TOKEN must be provided!");
 }
 
-const bot = new Telegraf.Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.telegram.getMe().then((botInfo) => {
-  bot.options.username = botInfo.username;
+  (bot as any).options.username = botInfo.username;
 });
 
 const RESPONSE_CHANCE = 0.01;
@@ -29,18 +30,38 @@ const RESPONSES = [
   "rip",
   "sheeeeeeeesh",
   "julia who??",
-  "someday Emily will too", 
+  "someday Emily will too",
 ];
 
-bot.start((ctx) => ctx.reply("You'll be hearing from me."));
-
-bot.on("message", (ctx) => {
-  if (Math.random() <= RESPONSE_CHANCE) {
-    const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
-    ctx.reply(response, { reply_to_message_id: ctx.message.message_id });
-  }
+bot.start((ctx) => {
+  ctx.reply("You'll be hearing from me.")
 });
 
+bot.on("message", (ctx) => {
+  const isMention = (ctx.message as any).entities ? (ctx.message as any).entities[0].type === 'mention' : false;
+
+  if (isMention) {
+    // got mentioned, figure out whether to reply to sender or the sender's replied message
+    const repliedMsgId = (ctx.message as Update.New & Update.NonChannel & Message.TextMessage).reply_to_message?.message_id;
+    const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
+    if (repliedMsgId) {
+      // reply to reply
+      ctx.reply(response, { reply_to_message_id: repliedMsgId });
+    } else {
+      // reply to sender
+      ctx.reply(response, { reply_to_message_id: ctx.message.message_id })
+    }
+  } else {
+    // just a normal message, decide to randomly respond
+    if (Math.random() <= RESPONSE_CHANCE) {
+      const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
+      setTimeout(() => {
+        ctx.reply(response, { reply_to_message_id: ctx.message.message_id });
+      }, 420);
+    }
+  }
+
+});
 
 bot.launch().then(() => {
   console.log("Started bot");
