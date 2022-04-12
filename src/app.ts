@@ -31,7 +31,8 @@ const RESPONSES = [
   "sheeeeeeeesh",
   "julia who??",
   "someday Emily will too",
-  "you must not be talking about *women*"
+  "you must not be talking about *women*",
+  "OR SHE"
 ];
 
 bot.start((ctx) => {
