@@ -31,6 +31,7 @@ const RESPONSES = [
   "sheeeeeeeesh",
   "julia who??",
   "someday Emily will too",
+  "you must not be talking about *women*"
 ];
 
 bot.start((ctx) => {
@@ -46,10 +47,10 @@ bot.on("message", (ctx) => {
     const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
     if (repliedMsgId) {
       // reply to reply
-      ctx.reply(response, { reply_to_message_id: repliedMsgId });
+      ctx.replyWithMarkdown(response, { reply_to_message_id: repliedMsgId });
     } else {
       // reply to sender
-      ctx.reply(response, { reply_to_message_id: ctx.message.message_id })
+      ctx.replyWithMarkdown(response, { reply_to_message_id: ctx.message.message_id })
     }
   } else {
     // just a normal message, decide to randomly respond
