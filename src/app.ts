@@ -31,6 +31,11 @@ const RESPONSES = [
   "sheeeeeeeesh",
   "julia who??",
   "someday Emily will too",
+  "so true, bestie",
+  "swond",
+  "OK, I failed at that.",
+  "you must not be talking about women",
+  "immigrants,, they get the job done"
 ];
 
 bot.start((ctx) => {
