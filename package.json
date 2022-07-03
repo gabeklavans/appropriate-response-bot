@@ -2,19 +2,20 @@
   "name": "response-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "engines": {
     "node": ">=16 <=18",
     "npm": ">= 8"
   },
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^9.0.2",
+    "fastify": "^4.2.0",
     "grammy": "^1.9.0"
   },
   "devDependencies": {

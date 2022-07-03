@@ -2,11 +2,11 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import { Bot } from "grammy";
 
-if (process.env.BOT_TOKEN === undefined) {
+if (!process.env.BOT_TOKEN) {
   throw new TypeError("BOT_TOKEN must be provided!");
 }
 
-const bot = new Bot(process.env.BOT_TOKEN);
+export const bot = new Bot(process.env.BOT_TOKEN);
 
 const RESPONSE_CHANCE = 0.01;
 const RESPONSES = [
@@ -65,4 +65,6 @@ bot.on("message", (ctx) => {
   }
 });
 
-bot.start();
+if (process.env.NODE_ENV !== "production") {
+  bot.start();
+}
