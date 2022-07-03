@@ -37,8 +37,8 @@ bot.command("start", (ctx) => {
 });
 
 bot.on("message", (ctx) => {
-  const isMention = (ctx.message as any).entities
-    ? (ctx.message as any).entities[0].type === "mention"
+  const isMention = ctx.message.entities
+    ? ctx.message.entities[0].type === "mention"
     : false;
 
   if (isMention) {
@@ -65,6 +65,4 @@ bot.on("message", (ctx) => {
   }
 });
 
-bot.start().then(() => {
-  console.log("Started bot");
-});
+bot.start();
