@@ -30,6 +30,7 @@ const RESPONSES = [
   "immigrants,, they get the job done",
   "you must not be talking about *women*",
   "OR SHE",
+  "This is indeed 'sus'.",
 ];
 
 bot.command("start", (ctx) => {
