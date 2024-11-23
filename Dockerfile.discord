@@ -12,4 +12,4 @@ COPY . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 RUN deno cache src/discord.ts
 
-CMD ["--env-file", "-INER", "src/discord.ts"]
+CMD ["-INER", "src/discord.ts"]
