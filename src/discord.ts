@@ -35,33 +35,41 @@ const bot = createBot({
     ready: (data) => {
       bot.logger.info(`The shard ${data.shardId} is ready!`);
     },
-    interactionCreate: (interaction) => {
+    interactionCreate: async (interaction) => {
       if (interaction.data?.name == "ping") {
-        bot.helpers.sendInteractionResponse(
-          interaction.id,
-          interaction.token,
-          {
-            type: InteractionResponseTypes.ChannelMessageWithSource,
-            data: { content: "pong" },
-          },
-        ).catch(bot.logger.error);
+        try {
+          await bot.helpers.sendInteractionResponse(
+            interaction.id,
+            interaction.token,
+            {
+              type: InteractionResponseTypes.ChannelMessageWithSource,
+              data: { content: "pong" },
+            },
+          );
+        } catch (error) {
+          bot.logger.error(error);
+        }
       }
     },
-    messageCreate: (message) => {
+    messageCreate: async (message) => {
       bot.logger.debug(
         `Message with id ${message.id} has author @${message.author.username} and ${
           message.author.bot ? "is" : "isn't"
         } a bot.`,
       );
       if (!message.author.bot && shouldRespond()) {
-        bot.helpers.sendMessage(message.channelId, {
-          content: getResponse(),
-          messageReference: {
-            type: DiscordMessageReferenceType.Default,
-            messageId: message.id,
-            failIfNotExists: true,
-          },
-        }).catch(bot.logger.error);
+        try {
+          await bot.helpers.sendMessage(message.channelId, {
+            content: getResponse(),
+            messageReference: {
+              type: DiscordMessageReferenceType.Default,
+              messageId: message.id,
+              failIfNotExists: true,
+            },
+          });
+        } catch (error) {
+          bot.logger.error(error);
+        }
       }
     },
   },
