@@ -1,12 +1,12 @@
 import {
+  ActivityTypes,
   createBot,
   DiscordInteractionContextType,
   DiscordMessageReferenceType,
   Intents,
   InteractionResponseTypes,
 } from "discbot";
-import { shouldRespond } from "./arb.ts";
-import { getResponse } from "./arb.ts";
+import { getResponse, shouldRespond } from "./arb.ts";
 
 const ARB_SPAM_CHANNEL_ID = 1309728180738719935n;
 
@@ -32,8 +32,24 @@ const bot = createBot({
     },
   },
   events: {
-    ready: (data) => {
-      bot.logger.info(`The shard ${data.shardId} is ready!`);
+    ready: async ({ shardId }) => {
+      bot.logger.info(`[READY] Shard ${shardId} is ready!`);
+      try {
+        await bot.gateway.editShardStatus(shardId, {
+          status: "online",
+          activities: [
+            {
+              name: "Concocting reasonable replies",
+              type: ActivityTypes.Custom,
+              timestamps: {
+                start: Date.now(),
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        bot.logger.error(error);
+      }
     },
     interactionCreate: async (interaction) => {
       if (interaction.data?.name == "ping") {
