@@ -5,7 +5,7 @@ import {
   DiscordMessageReferenceType,
   Intents,
   InteractionResponseTypes,
-} from "discbot";
+} from "@discordeno/bot";
 import { getResponse, shouldRespond } from "./arb.ts";
 
 const ARB_SPAM_CHANNEL_ID = 1309728180738719935n;
