@@ -1,0 +1,8 @@
+services:
+  arb-discord:
+    build:
+      context: .
+      dockerfile: Dockerfile.discord
+    environment:
+      DISCORD_BOT_TOKEN: <YOUR_TOKEN_HERE>
+    restart: unless-stopped
